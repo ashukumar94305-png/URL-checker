@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CYBERGUARD | Advanced Threat Intelligence</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Rajdhani:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Jumpscare Overlay -->
+    <div id="jumpscare" class="hidden">
+        <img src="skull.png" alt="Scary Skull">
+        <div class="jumpscare-text">SYSTEM BREACH DETECTED</div>
+    </div>
+
+    <!-- Matrix Rain Background -->
+    <canvas id="matrix-bg"></canvas>
+
+    <div class="dashboard-wrapper">
+        <!-- Sidebar Navigation (Visual Only) -->
+        <aside class="cyber-sidebar">
+            <div class="logo-area">
+                <i class="fa-solid fa-shield-halved logo-icon"></i>
+                <h2>CYBERGUARD</h2>
+            </div>
+            <nav>
+                <div class="nav-item active"><i class="fa-solid fa-radar"></i> Scanner</div>
+                <div class="nav-item"><i class="fa-solid fa-chart-line"></i> Analytics</div>
+                <div class="nav-item"><i class="fa-solid fa-skull-crossbones"></i> Dark Web</div>
+                <div class="nav-item"><i class="fa-solid fa-server"></i> Nodes</div>
+            </nav>
+        </aside>
+
+        <!-- Main Content Area -->
+        <main class="dashboard-main">
+            <!-- Top Header Stats -->
+            <header class="stats-header">
+                <div class="stat-card">
+                    <div class="stat-title">System Status</div>
+                    <div class="stat-value text-green">ONLINE <i class="fa-solid fa-circle-check"></i></div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-title">Threats Blocked</div>
+                    <div class="stat-value text-cyan counter">1,402,391</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-title">Global Risk Level</div>
+                    <div class="stat-value text-yellow">ELEVATED</div>
+                </div>
+            </header>
+
+            <div class="scanner-section cyber-panel">
+                <div class="panel-header">
+                    <h3><i class="fa-solid fa-crosshairs"></i> Target Acquisition</h3>
+                </div>
+                
+                <div class="scanner-wrap">
+                    <div class="input-box">
+                        <i class="fa-solid fa-link input-icon"></i>
+                        <input type="text" id="url-input" placeholder="Enter target URL for deep analysis..." autocomplete="off">
+                        <div class="input-scanline"></div>
+                    </div>
+                    <button id="check-btn" class="cyber-button">
+                        <span class="btn-text">INITIALIZE SCAN</span>
+                        <i class="fa-solid fa-bolt"></i>
+                    </button>
+                </div>
+
+                <!-- Progress Bar -->
+                <div id="scan-progress-container" class="hidden">
+                    <div class="progress-header">
+                        <span id="progress-text">Scanning Target...</span>
+                        <span id="progress-percent">0%</span>
+                    </div>
+                    <div class="progress-bar-wrap">
+                        <div id="progress-bar" class="progress-bar"></div>
+                    </div>
+                </div>
+
+                <!-- Terminal Logs -->
+                <div id="loading" class="hidden terminal-loader">
+                    <div class="terminal-header">
+                        <span class="terminal-title">system@cyberguard:~/scan_module</span>
+                    </div>
+                    <div class="terminal-body">
+                        <p class="cmd">➜  <span class="typing">Connecting to mainframe...</span></p>
+                        <p class="cmd hidden step-2">➜  <span class="typing">Running heuristic risk evaluation...</span></p>
+                        <p class="cmd hidden step-3">➜  <span class="typing">Cross-referencing global threat DB...</span></p>
+                    </div>
+                </div>
+
+                <!-- Results -->
+                <div id="result-container" class="hidden result-display">
+                    <div class="result-top">
+                        <div id="status-badge" class="status-badge">
+                            <i id="status-icon" class="fa-solid"></i>
+                            <span id="status-text">STATUS</span>
+                        </div>
+                        
+                        <!-- Risk Score Radial Chart -->
+                        <div class="risk-score-container">
+                            <svg class="radial-progress" viewBox="0 0 100 100">
+                                <circle class="radial-bg" cx="50" cy="50" r="40"></circle>
+                                <circle class="radial-bar" id="risk-radial" cx="50" cy="50" r="40" stroke-dasharray="251.2" stroke-dashoffset="251.2"></circle>
+                            </svg>
+                            <div class="risk-score-content">
+                                <span id="risk-score-val">0</span><span>%</span>
+                                <div class="risk-label">RISK</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="telemetry-card">
+                        <div class="card-header">
+                            <i class="fa-solid fa-chart-network"></i>
+                            <h3>Diagnostic Telemetry</h3>
+                        </div>
+                        <div class="reasons-wrapper">
+                            <ul id="reasons-list"></ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="error-container" class="hidden error-alert">
+                    <i class="fa-solid fa-triangle-exclamation"></i>
+                    <span id="error-msg"></span>
+                </div>
+            </div>
+
+            <!-- Bottom Widgets Row -->
+            <div class="widgets-row">
+                <div class="cyber-panel threat-history">
+                    <div class="panel-header">
+                        <h3><i class="fa-solid fa-clock-rotate-left"></i> Threat History</h3>
+                    </div>
+                    <ul class="history-list">
+                        <li><span class="text-red">[BLOCKED]</span> http://login-secure-auth.com</li>
+                        <li><span class="text-green">[SAFE]</span> https://github.com</li>
+                        <li><span class="text-red">[BLOCKED]</span> http://192.168.1.100/verify</li>
+                    </ul>
+                </div>
+                
+                <div class="cyber-panel dark-web">
+                    <div class="panel-header">
+                        <h3><i class="fa-solid fa-spider"></i> Dark Web Alerts</h3>
+                    </div>
+                    <div class="alert-item">
+                        <i class="fa-solid fa-triangle-exclamation text-yellow"></i>
+                        <div class="alert-info">
+                            <h4>New Phishing Kit Detected</h4>
+                            <p>Target: Banking Sector</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Right AI Assistant Panel -->
+        <aside class="ai-assistant-panel">
+            <div class="hologram-container">
+                <div class="ai-avatar">
+                    <div class="hologram-ring"></div>
+                    <div class="hologram-core"></div>
+                </div>
+                <div class="ai-name">A.I. OVERSEER</div>
+            </div>
+            
+            <div class="ai-dialog-box">
+                <div class="ai-message" id="ai-message">
+                    "System online. Awaiting URL input for advanced threat analysis."
+                </div>
+            </div>
+        </aside>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
